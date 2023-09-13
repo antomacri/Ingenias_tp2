@@ -129,3 +129,4 @@ app.get("*", (req, res) => {
 
 //Inicia el servidor
 app.listen(PORT, () => console.log(`API de Electronica escuchando en http://localhost:${PORT}`) );
+
