@@ -120,6 +120,35 @@ app.post('/Electronica', async (req, res) => {
     res.json(resultado.ops[0]); // Devolver el objeto insertado con su nuevo ID.
 });
 
+app.delete('/Electronica/:codigo', async (req, res) => { 
+    const codigo = req.params.codigo;
+    if (!codigo) {
+        res.status(400).send('Error en el formato del id recibido')
+    }
+    const client = await connectToMongodb();
+    if (!client) {
+        res.status(500).send('Error al conectarse a MongoDB')
+        return;
+    }
+    client.connect()
+        .then(() => { 
+            const collection = client.db('Ingenias').collection('Electronica')
+            return collection.deleteOne({codigo: parseInt(codigo)})
+        }).then((resultado) => {
+            if (resultado.deletedCount === 0) {
+                res.status(404).send('No se pudo encontrar un producto con id: '+codigo)
+            } else {
+                console.log('Producto eliminado')
+                res.status(204).send('Producto eliminado')
+            }
+        }).catch((err) => {
+            console.error(err)
+             res.status(500).send('Error al eliminar el producto')
+        }).finally(() => {
+            client.close()
+        })
+})
+
 app.get("*", (req, res) => {
   res.json({
     error: "404",

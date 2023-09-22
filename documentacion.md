@@ -14,6 +14,7 @@
       - [Método GET](#método-get)
       - [Método PUT](#método-put)
       - [Método POST](#método-post)
+      - [Método DELETE](#método-delete)
     - [Gráfico funcionamiento de la API](#gráfico-funcionamiento-de-la-api)
 
 ### Integrantes 
@@ -152,7 +153,42 @@ app.get("*", (req, res) => {
   });
 });
 ```
+#### Método DELETE
 
+Se utiliza el método DELETE para que la API nos permita eliminar productos a la base de datos.
+
+```javascript
+
+app.delete('/Electronica/:codigo', async (req, res) => { 
+    const codigo = req.params.codigo;
+    if (!codigo) {
+        res.status(400).send('Error en el formato del id recibido')
+    }
+    const client = await connectToMongodb();
+    if (!client) {
+        res.status(500).send('Error al conectarse a MongoDB')
+        return;
+    }
+    client.connect()
+        .then(() => { 
+            const collection = client.db('Ingenias').collection('Electronica')
+            return collection.deleteOne({codigo: parseInt(codigo)})
+        }).then((resultado) => {
+            if (resultado.deletedCount === 0) {
+                res.status(404).send('No se pudo encontrar un producto con id: '+codigo)
+            } else {
+                console.log('Producto eliminado')
+                res.status(204).send('Producto eliminado')
+            }
+        }).catch((err) => {
+            console.error(err)
+             res.status(500).send('Error al eliminar el producto')
+        }).finally(() => {
+            client.close()
+        })
+})
+
+```
 ### Gráfico funcionamiento de la API
 
 ```mermaid
@@ -162,6 +198,7 @@ graph TD;
     REQUEST-->GET;
     REQUEST-->PUT;
     REQUEST-->POST;
+    REQUEST-->DELETE;
 
 
 
