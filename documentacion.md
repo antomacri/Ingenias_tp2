@@ -26,9 +26,9 @@
 
 ### URL de la API
 ```
-[/Página principal](http://localhost:4000/Electronica)
+(http://localhost:4000/Electronica)
 ```
-[/Página principal](http://localhost:4000/Electronica)
+
 ### Repositorio
 ```
 https://github.com/antomacri/Ingenias_tp2/tree/main
