@@ -8,6 +8,7 @@
     - [Integrantes](#integrantes)
     - [URL de la API](#url-de-la-api)
     - [Repositorio](#repositorio)
+    - [Base de datos](#base-de-datos)
     - [Pasos para ejecutar la API](#pasos-para-ejecutar-la-api)
   - [Listado de Endpoints](#listado-de-endpoints)
     - [Ejemplo de Bloques de código utilizados](#ejemplo-de-bloques-de-código-utilizados)
@@ -15,7 +16,7 @@
       - [Método PUT](#método-put)
       - [Método POST](#método-post)
       - [Método DELETE](#método-delete)
-    - [Gráfico funcionamiento de la API](#gráfico-funcionamiento-de-la-api)
+  - [Gráfico funcionamiento de la API](#gráfico-funcionamiento-de-la-api)
 
 ### Integrantes 
 - Antonella Macri
@@ -33,13 +34,22 @@
 ```
 https://github.com/antomacri/Ingenias_tp2/tree/main
 ```
+### Base de datos
+```
+mongodb+srv://ingenias2:1234@admin.ebgrehp.mongodb.net/?retryWrites=true&w=majority
+```
+
 ### Pasos para ejecutar la API
 
 1. Abrir la terminal en VSC
 2. Instalar los paquetes con el comando npm i express mongodb nodemon dotenv
 3. Escribir en la terminar el comando git init
 4. Escribir el comando git clone https://github.com/antomacri/Ingenias_tp2/tree/main
-5. Escribir el comando npm run start
+5. Conectarse a la base de datos de mongoDB ingresando el siguiente URL para la conexión:
+   -  mongodb+srv://ingenias2:1234@admin.ebgrehp.mongodb.net/?retryWrites=true&w=majority
+6. Escribir el comando npm run start en la terminal
+7. Realizar las consultas de los endpoints utilizando los URL detallados en el punto siguiente.
+   
    
 
 ## Listado de Endpoints
@@ -52,6 +62,7 @@ https://github.com/antomacri/Ingenias_tp2/tree/main
 |GET| [/Electronica/precio](http://localhost:4000/Electronica/precio/:precio) | Retorna los productos que tengan el precio mayor o igual al ingresado |
 |POST|[/Electronica](http://localhost:4000/Electronica)| Agrega un nuevo producto a la base de datos|
 |PUT|[/Electronica/id](http://localhost:4000/Electronica/:id) | Actualiza los datos del producto seleccionado
+|DELETE|[/Electronica/id](http://localhost:4000/Electronica/:id) | Elimina el producto seleccionado según su ID.
 
 ### Ejemplo de Bloques de código utilizados
 
@@ -189,7 +200,7 @@ app.delete('/Electronica/:codigo', async (req, res) => {
 })
 
 ```
-### Gráfico funcionamiento de la API
+## Gráfico funcionamiento de la API
 
 ```mermaid
 graph TD;
